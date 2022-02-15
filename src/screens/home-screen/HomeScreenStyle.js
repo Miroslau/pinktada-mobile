@@ -1,6 +1,14 @@
 import { StyleSheet } from 'react-native';
 
 export const HomeScreenStyle = StyleSheet.create({
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  loaderHorizontal: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
   homeContainer: {
     padding: 10,
     justifyContent: 'flex-start',
