@@ -6,16 +6,26 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Text,
   View,
 } from 'react-native';
 
-const App = () => (
-  <View>
-    <Text>123</Text>
-  </View>
-);
+const App = () => {
+  useEffect(() => {
+    fetch('http://192.168.190.169/api/apartments/locations/most-apartments')
+      .then((response) => response.json())
+      .then((todos) => {
+        console.log('items: ', todos);
+      }).catch((error) => console.log(error.message));
+  }, []);
+
+  return (
+    <View>
+      <Text>126</Text>
+    </View>
+  );
+};
 
 export default App;
