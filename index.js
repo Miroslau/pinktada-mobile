@@ -3,7 +3,8 @@
  */
 
 import { AppRegistry } from 'react-native';
-import App from './App';
+// eslint-disable-next-line import/no-named-as-default-member
+import ProviderComponent from './ProviderComponent';
 import { name as appName } from './app.json';
 
-AppRegistry.registerComponent(appName, () => App);
+AppRegistry.registerComponent(appName, () => ProviderComponent);
