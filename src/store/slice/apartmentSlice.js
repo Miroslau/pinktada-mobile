@@ -10,7 +10,7 @@ export const apartmentSlice = createSlice({
     apartments: [],
     clusters: [],
     isFetchAll: true,
-    publicAddress: '',
+    publicAddress: 'test',
     currentPage: 0,
     count: 0,
     bounds: null,

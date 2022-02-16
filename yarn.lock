@@ -2442,6 +2442,11 @@
   "resolved" "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.2.tgz"
   "version" "1.0.2"
 
+"base-64@0.1.0":
+  "integrity" "sha1-eAqZyE59YAJgNhURxId2E78k9rs="
+  "resolved" "https://registry.npmjs.org/base-64/-/base-64-0.1.0.tgz"
+  "version" "0.1.0"
+
 "base@^0.11.1":
   "integrity" "sha512-5T6P4xPgpp0YDFvSWwEZ4NoE3aM4QBQXDzmVbraCkFj8zHM+mba8SyqB5DbZWyR7mYHo6Y7BdQo3MoA4m0TeQg=="
   "resolved" "https://registry.npmjs.org/base/-/base-0.11.2.tgz"
@@ -3914,7 +3919,7 @@
   dependencies:
     "is-glob" "^4.0.1"
 
-"glob@^7.1.1", "glob@^7.1.2", "glob@^7.1.3", "glob@^7.1.4":
+"glob@^7.1.1", "glob@^7.1.2", "glob@^7.1.3", "glob@^7.1.4", "glob@^7.1.6":
   "integrity" "sha512-lmLf6gtyrPq8tTjSmrO94wBeQbFR3HbLHbuyD69wuyQkImp2hWqMGB47OX65FBkPffO641IP9jWa1z4ivqG26Q=="
   "resolved" "https://registry.npmjs.org/glob/-/glob-7.2.0.tgz"
   "version" "7.2.0"
@@ -6764,6 +6769,14 @@
   "resolved" "https://registry.npmjs.org/react-native-anchor-carousel/-/react-native-anchor-carousel-4.0.1.tgz"
   "version" "4.0.1"
 
+"react-native-blob-util@^0.13.12":
+  "integrity" "sha512-f9NyydQKMd24QiyW+LZmDg2rjCTi4GBff3UJzP1BDgEQ8aoHMs4MZmPs5erNH4E577qhEFp5v7HGzXVRQL8SnQ=="
+  "resolved" "https://registry.npmjs.org/react-native-blob-util/-/react-native-blob-util-0.13.18.tgz"
+  "version" "0.13.18"
+  dependencies:
+    "base-64" "0.1.0"
+    "glob" "^7.1.6"
+
 "react-native-codegen@^0.0.8":
   "integrity" "sha512-k/944+0XD+8l7zDaiKfYabyEKmAmyZgS1mj+4LcSRPyHnrjgCHKrh/Y6jM6kucQ6xU1+1uyMmF/dSkikxK8i+Q=="
   "resolved" "https://registry.npmjs.org/react-native-codegen/-/react-native-codegen-0.0.8.tgz"
@@ -6918,6 +6931,13 @@
     "esprima" "~4.0.0"
     "source-map" "~0.6.1"
     "tslib" "^2.0.1"
+
+"redux-persist-filesystem-storage@^4.0.0":
+  "integrity" "sha512-NuiMhziWU5XkJeR5e4trxTIEpgAMR7X6hubwAAIFnaDKCPhLG5V1sO1sDKe7L6GgbZzYbTLXp/C3hKFkJ99ICw=="
+  "resolved" "https://registry.npmjs.org/redux-persist-filesystem-storage/-/redux-persist-filesystem-storage-4.0.0.tgz"
+  "version" "4.0.0"
+  dependencies:
+    "react-native-blob-util" "^0.13.12"
 
 "redux-persist@^6.0.0":
   "integrity" "sha512-71LLMbUq2r02ng2We9S215LtPu3fY0KgaGE0k8WRgl6RkqxtGfl7HUozz1Dftwsb0D/5mZ8dwAaPbtnzfvbEwQ=="
