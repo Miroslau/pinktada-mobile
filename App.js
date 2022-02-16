@@ -14,7 +14,7 @@ import {
 
 const App = () => {
   useEffect(() => {
-    fetch('http://192.168.190.169/api/apartments/locations/most-apartments')
+    fetch('http://192.168.190.193/api/apartments/locations/most-apartments')
       .then((response) => response.json())
       .then((todos) => {
         console.log('items: ', todos);
@@ -23,7 +23,7 @@ const App = () => {
 
   return (
     <View>
-      <Text>126</Text>
+      <Text>126232</Text>
     </View>
   );
 };
