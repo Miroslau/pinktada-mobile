@@ -27,7 +27,8 @@ const CaruselBar = ({ data, pressItem }) => {
   };
 
   const renderItem = ({ item, index }) => {
-    const { imageUrl, publicAddress } = item;
+    const { imageUrl, publicAddress, image } = item;
+    const itemImage = imageUrl || image;
 
     // eslint-disable-next-line no-shadow
     const pressHandler = (item, index) => {
@@ -42,7 +43,7 @@ const CaruselBar = ({ data, pressItem }) => {
         // eslint-disable-next-line react/jsx-no-bind
         onPress={pressHandler.bind(this, item, index)}
       >
-        <ImageBackground source={{ uri: imageUrl }} style={CaruselBarStyle.imageBackground} />
+        <ImageBackground source={{ uri: itemImage }} style={CaruselBarStyle.imageBackground} />
         {
           publicAddress ? (
             <View style={CaruselBarStyle.lowerContainer}>
