@@ -34,7 +34,6 @@ const HomeScreen = ({ navigation }) => {
             return city;
           });
           setMajorCities(cities);
-          setIsLoading(false);
         }
       })
       .catch((err) => err.message);
@@ -48,7 +47,13 @@ const HomeScreen = ({ navigation }) => {
         }
       })
       .catch((err) => err.message);
-  }, [hasMounted]);
+  }, [hasMounted, startDate, endDate]);
+
+  useEffect(() => {
+    if (popularRooms.length !== 0 && majorCities.length !== 0) {
+      setIsLoading(false);
+    }
+  }, [popularRooms, majorCities]);
 
   const openMapPage = (item) => {
     console.log('item: ', item);
