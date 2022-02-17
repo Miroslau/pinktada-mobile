@@ -7,22 +7,29 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
+    "postinstall": "jetify",
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.16.1",
+    "@react-native-community/cli": "^7.0.1",
     "@react-navigation/bottom-tabs": "^6.2.0",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
     "@reduxjs/toolkit": "^1.7.2",
     "axios": "^0.26.0",
+    "jetifier": "^2.0.0",
     "lodash": "^4.17.21",
     "react": "17.0.2",
     "react-native": "0.67.2",
     "react-native-anchor-carousel": "^4.0.1",
+    "react-native-device-info": "^8.4.9",
+    "react-native-eject": "^0.1.2",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.11.1",
     "react-redux": "^7.2.6",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "redux-persist-filesystem-storage": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.17.2",
