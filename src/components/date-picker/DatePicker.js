@@ -13,6 +13,7 @@ const DatePicker = (props) => {
       value={value}
       mode={mode}
       display={display}
+      // eslint-disable-next-line react/jsx-no-bind
       onChange={onChange}
       maximumDate={maximumDate}
       minimumDate={minimumDate}

@@ -31,16 +31,26 @@ export const SearchSettingsStyle = StyleSheet.create({
   },
 
   text: {
-    alignSelf: 'center',
     color: colorVariables.colorBigStone,
     fontSize: 20,
     fontWeight: '500',
-    margin: 15,
+    margin: 7,
   },
 
-  locationSearch: {
+  formContainer: {
     flex: 1,
+    borderWidth: 1,
+    borderColor: 'black',
     alignItems: 'center',
+  },
+
+  dateStyle: {
+    flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: 'black',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    width: 280,
   },
 
   input: {
@@ -52,7 +62,14 @@ export const SearchSettingsStyle = StyleSheet.create({
   },
 
   icon: {
-    width: 25,
-    height: 25,
+    width: 35,
+    height: 35,
+  },
+
+  bedroomCount: {
+    borderColor: colorVariables.colorGray,
+    borderWidth: 1,
+    borderRadius: 20,
+    padding: 10,
   },
 });

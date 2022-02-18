@@ -1,19 +1,54 @@
 import React, { useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import {
-  View, TextInput, Text, Image,
+  View, TextInput, Text, Image, TouchableOpacity, Button,
 } from 'react-native';
 import { debounce } from 'lodash';
 import moment from 'moment';
+import { setDate, setDateParams } from '../../store/slice/apartmentSlice';
 import { SearchSettingsStyle } from './SearchSettingsStyle';
 import SearchDropDown from '../search-drop-down/SearchDropDown';
 import searchLocationApi from '../../api/search-location/searchLocationApi';
 import calendar from '../../../assets/icons/calendar.png';
+import DatePicker from '../date-picker/DatePicker';
+
+const START_DATE = 'Start Date';
+const END_DATE = 'End Date';
+
+const MIN_DATE = new Date();
 
 const SearchSettings = () => {
+  const dispatch = useDispatch();
   const [isSearching, setIsSearching] = useState(false);
+  const [isOpenStartDay, setOpenStartDay] = useState(false);
+  const [isOpenEndDay, setOpenEndDay] = useState(false);
   const [locations, setLocations] = useState([]);
   const [textValue, setTextValue] = useState('');
-  const [startDateValue, setStartDateValue] = useState(moment().format('YYYY-MM-DD'));
+  const [startDateValue, setStartDateValue] = useState(new Date());
+  // eslint-disable-next-line max-len
+  const [endDateValue, setEndDateValue] = useState(new Date(new Date().setDate(new Date().getDate() + 1)));
+
+  const setStartDay = (value) => {
+    const { type, nativeEvent } = value;
+    const { timestamp } = nativeEvent;
+    if (type === 'set') {
+      setStartDateValue(timestamp);
+    }
+    setOpenStartDay(false);
+    dispatch(setDate({ startDate: timestamp, endDate: endDateValue }));
+    dispatch(setDateParams({ startDate: timestamp, endDate: endDateValue }));
+  };
+
+  const setEndDay = (value) => {
+    const { type, nativeEvent } = value;
+    const { timestamp } = nativeEvent;
+    if (type === 'set') {
+      setEndDateValue(timestamp);
+    }
+    setOpenEndDay(false);
+    dispatch(setDate({ startDate: startDateValue, endDate: timestamp }));
+    dispatch(setDateParams({ startDate: startDateValue, endDate: timestamp }));
+  };
 
   const getLocations = (searchVal) => {
     searchLocationApi.getLocations(searchVal)
@@ -47,7 +82,7 @@ const SearchSettings = () => {
     <View style={SearchSettingsStyle.modalView}>
       <View style={SearchSettingsStyle.modalContainer}>
         <View style={SearchSettingsStyle.line} />
-        <View style={SearchSettingsStyle.locationSearch}>
+        <View style={SearchSettingsStyle.formContainer}>
           <TextInput
             style={SearchSettingsStyle.input}
             onChangeText={onSearch}
@@ -62,15 +97,51 @@ const SearchSettings = () => {
               />
               )
           }
-        </View>
-        <View style={SearchSettingsStyle.locationSearch}>
-          <Image style={SearchSettingsStyle.icon} resizeMode="contain" source={calendar} />
-          <Text>
-            Start Date:
-            {startDateValue}
-          </Text>
+          <TouchableOpacity
+            style={SearchSettingsStyle.dateStyle}
+            // eslint-disable-next-line react/jsx-no-bind
+            onPress={() => setOpenStartDay(true)}
+          >
+            <Image style={SearchSettingsStyle.icon} resizeMode="contain" source={calendar} />
+            <Text style={SearchSettingsStyle.text}>{`${START_DATE}: `}</Text>
+            <Text style={SearchSettingsStyle.text}>{moment(startDateValue).format('YYYY-MM-DD')}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={SearchSettingsStyle.dateStyle}
+              // eslint-disable-next-line react/jsx-no-bind
+            onPress={() => setOpenEndDay(true)}
+          >
+            <Image style={SearchSettingsStyle.icon} resizeMode="contain" source={calendar} />
+            <Text style={SearchSettingsStyle.text}>{`${END_DATE}: `}</Text>
+            <Text style={SearchSettingsStyle.text}>{moment(endDateValue).format('YYYY-MM-DD')}</Text>
+          </TouchableOpacity>
+          <View style={SearchSettingsStyle.bedroomCount}>
+            <Text>Bedroom count</Text>
+          </View>
         </View>
       </View>
+      {
+          isOpenStartDay && (
+          <DatePicker
+            value={startDateValue}
+            minimumDate={MIN_DATE}
+            onChange={setStartDay}
+            mode="date"
+            display="calendar"
+          />
+          )
+      }
+      {
+        isOpenEndDay && (
+        <DatePicker
+          value={endDateValue}
+          minimumDate={MIN_DATE}
+          onChange={setEndDay}
+          mode="date"
+          display="calendar"
+        />
+        )
+      }
     </View>
   );
 };

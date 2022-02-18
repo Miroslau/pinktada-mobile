@@ -87,4 +87,8 @@ export const apartmentSlice = createSlice({
   },
 });
 
+export const {
+  setPublicAddress, clearState, setParams, setBounds, setDate, setDateParams, clearStateWithoutDate,
+} = apartmentSlice.actions;
+
 export const apartmentSelector = (state) => state.apartment;
