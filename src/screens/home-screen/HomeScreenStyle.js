@@ -37,6 +37,11 @@ export const HomeScreenStyle = StyleSheet.create({
     fontWeight: 'bold',
   },
 
+  buttonBlock: {
+    margin: 20,
+    width: '100%',
+  },
+
   block: {
     margin: 10,
   },

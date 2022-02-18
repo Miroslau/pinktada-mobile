@@ -4,4 +4,6 @@ export const colorVariables = {
   colorJuniper: '#748C94',
   colorWhite: '#FFFFFF',
   colorBlue: '#0000FF',
+  colorGray: '#000000AA',
+  colorBigStone: '#182E44',
 };
