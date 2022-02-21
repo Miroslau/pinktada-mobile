@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { SafeAreaView, Text } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import MapComponent from '../../components/map-component/MapComponent';
 import { apartmentSelector } from '../../store/slice/apartmentSlice';

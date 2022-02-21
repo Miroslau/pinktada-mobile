@@ -1,10 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react';
-import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import {
-  StyleSheet, Dimensions, View, Text,
+  PROVIDER_GOOGLE, Marker,
+} from 'react-native-maps';
+import MapView from 'react-native-map-clustering';
+import {
+  StyleSheet, Dimensions, View, TextInput,
 } from 'react-native';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
+import pointMarker from '../../../assets/icons/pointMarker.png';
 
 const { height } = Dimensions.get('window');
 
@@ -62,18 +66,20 @@ const MapComponent = ({ apartments }) => {
                 latitude: item.location.lat,
                 longitude: item.location.lon,
               }}
+              image={pointMarker}
             />
           ))
         }
       </MapView>
-      <Text>
-        Current latitude:
-        {region.latitude}
-      </Text>
-      <Text>
-        Current longitude:
-        {region.longitude}
-      </Text>
+      {/* eslint-disable-next-line no-use-before-define */}
+      <View style={styles.searchBox}>
+        <TextInput
+          placeholder="Search here"
+          placeholderTextColor="#000"
+          autoCapitalize="none"
+          style={{ flex: 1, padding: 0 }}
+        />
+      </View>
     </View>
   );
 };
@@ -88,6 +94,21 @@ const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
     height,
+  },
+  searchBox: {
+    position: 'absolute',
+    marginTop: 20,
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+    width: '90%',
+    alignSelf: 'center',
+    borderRadius: 5,
+    padding: 10,
+    shadowColor: '#ccc',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    elevation: 10,
   },
 });
 
