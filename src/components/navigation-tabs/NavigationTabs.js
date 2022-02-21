@@ -31,6 +31,7 @@ const NavigationTabs = () => (
           name={route.name}
           component={route.Component}
           options={{
+            unmountOnBlur: true,
             // eslint-disable-next-line react/no-unstable-nested-components
             tabBarIcon: ({ focused }) => (
               <View style={NavigationTabsStyle.tabScreen}>
@@ -63,6 +64,9 @@ const NavigationTabs = () => (
               </View>
             ),
           }}
+          listeners={({ navigation }) => ({
+            blur: () => navigation.setParams({ screen: undefined }),
+          })}
         />
       ))
     }
