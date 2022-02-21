@@ -41,9 +41,7 @@ const MapScreen = () => {
 
   return (
   // eslint-disable-next-line no-use-before-define
-    <SafeAreaView forceInset={{ top: 'always' }}>
-      <MapComponent apartments={apartments} />
-    </SafeAreaView>
+    <MapComponent apartments={apartments} />
   );
 };
 
