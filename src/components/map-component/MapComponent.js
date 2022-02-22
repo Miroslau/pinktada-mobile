@@ -32,6 +32,22 @@ const MapComponent = ({ apartments }) => {
   let mapIndex = 0;
   const mapAnimation = new Animated.Value(0);
 
+  const interpolations = apartments.map((apartment, index) => {
+    const inputRange = [
+      (index - 1) * CARD_WIDTH,
+      index * CARD_WIDTH,
+      ((index + 1) * CARD_WIDTH),
+    ];
+
+    const scale = mapAnimation.interpolate({
+      inputRange,
+      outputRange: [1, 1.5, 1],
+      extrapolate: 'clamp',
+    });
+
+    return { scale };
+  });
+
   const mapRef = useRef(null);
 
   const animateToRegion = () => {
@@ -98,19 +114,32 @@ const MapComponent = ({ apartments }) => {
         showsUserLocation
       >
         {
-          apartments.map((item) => (
-            <Marker
-              key={item._id}
-              coordinate={{
-                latitude: item.location.lat,
-                longitude: item.location.lon,
-              }}
-            >
-              <Animated.View style={[MapComponentStyle.markerWrap]}>
-                <Animated.Image source={pointMarker} style={[MapComponentStyle.marker]} />
-              </Animated.View>
-            </Marker>
-          ))
+          apartments.map((item, index) => {
+            const scaleStyle = {
+              transform: [
+                {
+                  scale: interpolations[index].scale,
+                },
+              ],
+            };
+            return (
+              <Marker
+                key={item._id}
+                coordinate={{
+                  latitude: item.location.lat,
+                  longitude: item.location.lon,
+                }}
+              >
+                <Animated.View style={[MapComponentStyle.markerWrap]}>
+                  <Animated.Image
+                    source={pointMarker}
+                    style={[MapComponentStyle.marker, scaleStyle]}
+                    resizeMode="cover"
+                  />
+                </Animated.View>
+              </Marker>
+            );
+          })
         }
       </MapView>
       <View style={MapComponentStyle.searchBox}>
