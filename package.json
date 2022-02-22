@@ -5,7 +5,6 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "prod": "cross-env REACT_APP_IS_PROD=true react-native run-android",
     "start-server": "react-native start",
     "start": "concurrently \"yarn start-server\" \"yarn android\"",
     "test": "jest",

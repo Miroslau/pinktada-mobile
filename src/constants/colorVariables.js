@@ -8,4 +8,5 @@ export const colorVariables = {
   colorBlack: '#000',
   colorSilver: '#ccc',
   colorTundora: '#444',
+  colorPermision: '#FF6347',
 };
