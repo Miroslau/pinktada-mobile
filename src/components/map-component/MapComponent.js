@@ -9,7 +9,7 @@ import {
   TextInput,
   Animated,
   Image,
-  Text,
+  Text, Platform,
 } from 'react-native';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
@@ -49,6 +49,7 @@ const MapComponent = ({ apartments }) => {
   });
 
   const mapRef = useRef(null);
+  const scrollView = useRef(null);
 
   const animateToRegion = () => {
     mapRef.current.animateToRegion(region, 1000);
@@ -64,6 +65,22 @@ const MapComponent = ({ apartments }) => {
         longitude: lon,
       }));
     }
+  };
+
+  const onMarkerPress = (e) => {
+    const markerId = e._targetInst.return.key;
+
+    let x = (markerId * CARD_WIDTH) + (markerId * 20);
+    if (Platform.OS === 'ios') {
+      // eslint-disable-next-line no-unused-vars
+      x -= SPACING_FOR_CARD_INSET;
+    }
+
+    scrollView.current.scrollTo({
+      x,
+      y: 0,
+      animated: true,
+    });
   };
 
   useEffect(() => {
@@ -129,6 +146,7 @@ const MapComponent = ({ apartments }) => {
                   latitude: item.location.lat,
                   longitude: item.location.lon,
                 }}
+                onPress={onMarkerPress}
               >
                 <Animated.View style={[MapComponentStyle.markerWrap]}>
                   <Animated.Image
@@ -153,6 +171,7 @@ const MapComponent = ({ apartments }) => {
       <Animated.ScrollView
         horizontal
         scrollEventThrottle={1}
+        ref={scrollView}
         showsHorizontalScrollIndicator={false}
         style={MapComponentStyle.scrollView}
         pagingEnabled
