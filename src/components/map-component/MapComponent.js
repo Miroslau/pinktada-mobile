@@ -4,7 +4,6 @@ import {
 } from 'react-native-maps';
 import MapView from 'react-native-map-clustering';
 import {
-  StyleSheet,
   Dimensions,
   View,
   TextInput,
@@ -15,10 +14,12 @@ import {
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
 import pointMarker from '../../../assets/icons/pointMarker.png';
+import MapComponentStyle from './MapComponentStyle';
 
 const { width } = Dimensions.get('window');
 
-const mapAnimation = new Animated.Value(0);
+const CARD_WIDTH = width * 0.5;
+const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
 const MapComponent = ({ apartments }) => {
   const [region, setRegion] = useState({
@@ -27,6 +28,9 @@ const MapComponent = ({ apartments }) => {
     latitudeDelta: 0.0121,
     longitudeDelta: 0.0121,
   });
+
+  let mapIndex = 0;
+  const mapAnimation = new Animated.Value(0);
 
   const mapRef = useRef(null);
 
@@ -54,11 +58,38 @@ const MapComponent = ({ apartments }) => {
     animateToRegion();
   }, [region]);
 
+  useEffect(() => {
+    mapAnimation.addListener(({ value }) => {
+      let index = Math.floor(value / CARD_WIDTH + 0.3);
+      if (index >= apartments.length) {
+        index = apartments.length - 1;
+      }
+      if (index <= 0) {
+        index = 0;
+      }
+
+      // eslint-disable-next-line no-use-before-define
+      clearTimeout(regionTimeout);
+
+      const regionTimeout = setTimeout(() => {
+        if (mapIndex !== index) {
+          mapIndex = index;
+          const { location } = apartments[index];
+          mapRef.current.animateToRegion({
+            latitude: location.lat,
+            longitude: location.lon,
+            latitudeDelta: region.latitudeDelta,
+            longitudeDelta: region.longitudeDelta,
+          }, 350);
+        }
+      }, 10);
+    });
+  });
+
   return (
-    <View style={styles.container}>
+    <View style={MapComponentStyle.container}>
       <MapView
-           // eslint-disable-next-line no-use-before-define
-        style={styles.container}
+        style={MapComponentStyle.container}
         loadingEnabled
         initialRegion={region}
         ref={mapRef}
@@ -75,17 +106,14 @@ const MapComponent = ({ apartments }) => {
                 longitude: item.location.lon,
               }}
             >
-              {/* eslint-disable-next-line no-use-before-define */}
-              <Animated.View style={[styles.markerWrap]}>
-                {/* eslint-disable-next-line no-use-before-define */}
-                <Animated.Image source={pointMarker} style={[styles.marker]} />
+              <Animated.View style={[MapComponentStyle.markerWrap]}>
+                <Animated.Image source={pointMarker} style={[MapComponentStyle.marker]} />
               </Animated.View>
             </Marker>
           ))
         }
       </MapView>
-      {/* eslint-disable-next-line no-use-before-define */}
-      <View style={styles.searchBox}>
+      <View style={MapComponentStyle.searchBox}>
         <TextInput
           placeholder="Search here"
           placeholderTextColor="#000"
@@ -97,15 +125,15 @@ const MapComponent = ({ apartments }) => {
         horizontal
         scrollEventThrottle={1}
         showsHorizontalScrollIndicator={false}
-        style={styles.scrollView}
+        style={MapComponentStyle.scrollView}
         pagingEnabled
-        snapToInterval={(width * 0.5) + 20}
+        snapToInterval={CARD_WIDTH + 20}
         snapToAlignment="center"
         contentInset={{
           top: 0,
-          left: width * 0.1 - 10,
+          left: SPACING_FOR_CARD_INSET,
           bottom: 0,
-          right: width * 0.1 - 10,
+          right: SPACING_FOR_CARD_INSET,
         }}
         contentContainerStyle={{
           paddingHorizontal: 0,
@@ -125,14 +153,14 @@ const MapComponent = ({ apartments }) => {
       >
         {
           apartments.map((item) => (
-            <View key={item._id} style={styles.card}>
+            <View key={item._id} style={MapComponentStyle.card}>
               <Image
                 source={{ uri: item.img }}
-                style={styles.cardImage}
+                style={MapComponentStyle.cardImage}
                 resizeMode="cover"
               />
-              <View style={styles.textContent}>
-                <Text numberOfLines={1} style={styles.cardTitle}>{item.name}</Text>
+              <View style={MapComponentStyle.textContent}>
+                <Text numberOfLines={1} style={MapComponentStyle.cardTitle}>{item.name}</Text>
               </View>
             </View>
           ))
@@ -141,72 +169,6 @@ const MapComponent = ({ apartments }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  markerWrap: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 50,
-    height: 50,
-  },
-  marker: {
-    width: 30,
-    height: 30,
-  },
-  searchBox: {
-    position: 'absolute',
-    marginTop: 20,
-    flexDirection: 'row',
-    backgroundColor: '#fff',
-    width: '90%',
-    alignSelf: 'center',
-    borderRadius: 5,
-    padding: 10,
-    shadowColor: '#ccc',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
-    elevation: 10,
-  },
-  scrollView: {
-    position: 'absolute',
-    bottom: 80,
-    left: 0,
-    right: 0,
-    paddingVertical: 10,
-  },
-  card: {
-    elevation: 2,
-    backgroundColor: '#FFF',
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
-    marginHorizontal: 10,
-    shadowColor: '#000',
-    shadowRadius: 5,
-    shadowOpacity: 0.3,
-    shadowOffset: { x: 2, y: -2 },
-    height: 150,
-    width: width * 0.5,
-    overflow: 'hidden',
-  },
-  cardImage: {
-    flex: 3,
-    width: '100%',
-    height: '100%',
-    alignSelf: 'center',
-  },
-  textContent: {
-    flex: 2,
-    padding: 10,
-  },
-  cardTitle: {
-    fontSize: 12,
-    fontWeight: 'bold',
-  },
-});
 
 MapComponent.propTypes = {
   apartments: PropTypes.instanceOf(Array).isRequired,
