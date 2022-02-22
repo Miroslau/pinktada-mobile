@@ -5,25 +5,31 @@ import {
 import { uniqueId } from 'lodash';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setPublicAddress, apartmentSelector, clearState } from '../../store/slice/apartmentSlice';
 import majorCitiesAPI from '../../api/major-cities/majorCitiesAPI';
 import popularRoomsAPI from '../../api/popular-rooms/popularRoomsAPI';
 import CaruselBar from '../../components/carusel-bar/CaruselBar';
 import { HomeScreenStyle } from './HomeScreenStyle';
 import useMountedState from '../../hooks/useMountedState';
 import { colorVariables } from '../../constants/colorVariables';
-import { apartmentSelector } from '../../store/slice/apartmentSlice';
 
 const PREFIX = 'major_cities_';
 const SIZE = 'large';
 
 const HomeScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+
   const [majorCities, setMajorCities] = useState([]);
   const [popularRooms, setPopularRooms] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const hasMounted = useMountedState();
 
   const { startDate, endDate } = useSelector(apartmentSelector);
+
+  useEffect(() => {
+    dispatch(clearState());
+  }, []);
 
   useEffect(() => {
     majorCitiesAPI.getMajorCities()
@@ -55,8 +61,8 @@ const HomeScreen = ({ navigation }) => {
     }
   }, [popularRooms, majorCities]);
 
-  const openMapPage = (item) => {
-    console.log('item: ', item);
+  const openMapPage = (city) => {
+    dispatch(setPublicAddress(city));
     navigation.navigate('Map');
   };
 

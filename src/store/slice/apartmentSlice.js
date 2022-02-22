@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { searchApartments } from '../actions/apartmentAction';
 
 export const apartmentSlice = createSlice({
   name: 'apartment',
@@ -85,6 +86,31 @@ export const apartmentSlice = createSlice({
       };
     },
   },
+  extraReducers: {
+    [searchApartments.fulfilled]: (state, { payload }) => {
+      state.apartments = payload.isFilter
+        ? payload.apartments
+        : [...state.apartments, ...payload.apartments];
+      state.currentPage = payload.isFilter ? 1 : state.currentPage += 1;
+      state.count = payload.count;
+      state.clusters = payload.clusters;
+      state.isFetchAll = payload.isFetchAll;
+      state.isSuccess = true;
+      state.isFetching = false;
+    },
+    [searchApartments.pending]: (state) => {
+      state.isFetching = true;
+    },
+    [searchApartments.rejected]: (state, { payload }) => {
+      state.isError = true;
+      state.isFetching = false;
+      state.errorMessage = payload;
+    },
+  },
 });
+
+export const {
+  setPublicAddress, clearState, setParams, setBounds, setDate, setDateParams, clearStateWithoutDate,
+} = apartmentSlice.actions;
 
 export const apartmentSelector = (state) => state.apartment;
