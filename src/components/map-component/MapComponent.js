@@ -8,17 +8,17 @@ import {
   View,
   TextInput,
   Animated,
-  Image,
-  Text, Platform,
+  Platform,
 } from 'react-native';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
 import pointMarker from '../../../assets/icons/pointMarker.png';
 import MapComponentStyle from './MapComponentStyle';
+import ApartmentCard from '../apartment-card/ApartmentCard';
 
 const { width } = Dimensions.get('window');
 
-const CARD_WIDTH = width * 0.5;
+const CARD_WIDTH = width * 0.8;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
 const MapComponent = ({ apartments }) => {
@@ -58,7 +58,6 @@ const MapComponent = ({ apartments }) => {
   const getYourCurrentLocation = () => {
     if (apartments.length) {
       const { lat, lon } = apartments[0].location;
-      console.log(lat, lon);
       setRegion((prevState) => ({
         ...prevState,
         latitude: lat,
@@ -201,16 +200,7 @@ const MapComponent = ({ apartments }) => {
       >
         {
           apartments.map((item) => (
-            <View key={item._id} style={MapComponentStyle.card}>
-              <Image
-                source={{ uri: item.img }}
-                style={MapComponentStyle.cardImage}
-                resizeMode="cover"
-              />
-              <View style={MapComponentStyle.textContent}>
-                <Text numberOfLines={1} style={MapComponentStyle.cardTitle}>{item.name}</Text>
-              </View>
-            </View>
+            <ApartmentCard key={item._id} item={item} />
           ))
         }
       </Animated.ScrollView>
