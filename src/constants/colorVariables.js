@@ -7,4 +7,5 @@ export const colorVariables = {
   colorBlueLagoon: '#007a87',
   colorBlack: '#000',
   colorSilver: '#ccc',
+  colorTundora: '#444',
 };

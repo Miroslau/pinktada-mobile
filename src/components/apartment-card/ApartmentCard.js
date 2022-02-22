@@ -5,20 +5,16 @@ import PropTypes from 'prop-types';
 import ApartmentCardStyle from './ApartmentCardStyle';
 
 const ApartmentCard = ({ item }) => (
-  <View>
-    <View style={ApartmentCardStyle.container}>
-      <Text style={ApartmentCardStyle.textImage}>
-        <Image
-          style={ApartmentCardStyle.img}
-          resizeMode="cover"
-          source={{
-            uri: item.img,
-          }}
-        />
-      </Text>
+  <View key={item._id} style={ApartmentCardStyle.card}>
+    <Image
+      source={{ uri: item.img }}
+      style={ApartmentCardStyle.cardImage}
+      resizeMode="cover"
+    />
+    <View style={ApartmentCardStyle.textContent}>
+      <Text numberOfLines={1} style={ApartmentCardStyle.cardTitle}>{item.name}</Text>
+      <Text numberOfLines={1} style={ApartmentCardStyle.cardDescription}>{item.address}</Text>
     </View>
-    <View style={ApartmentCardStyle.arrowBorder} />
-    <View style={ApartmentCardStyle.arrow} />
   </View>
 );
 
