@@ -1,5 +1,6 @@
 import HomeScreen from '../screens/home-screen/HomeScreen';
 import MapScreen from '../screens/map-screen/MapScreen';
+import UserScreen from '../screens/user-screen/UserScreen';
 
 const publicRoutes = [
   {
@@ -15,6 +16,13 @@ const publicRoutes = [
     title: 'MAP',
     Component: MapScreen,
     icon: require('../../assets/icons/map.png'),
+  },
+  {
+    id: 'user',
+    name: 'User',
+    title: 'USER',
+    Component: UserScreen,
+    icon: require('../../assets/icons/user.png'),
   },
 ];
 
