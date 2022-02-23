@@ -1,4 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, {
+  useEffect, useState, useRef, useCallback,
+} from 'react';
 import {
   PROVIDER_GOOGLE, Marker,
 } from 'react-native-maps';
@@ -21,13 +23,15 @@ const { width } = Dimensions.get('window');
 const CARD_WIDTH = width * 0.8;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
-const MapComponent = ({ apartments }) => {
+const MapComponent = ({ apartments, onEndReachedHandler }) => {
   const [region, setRegion] = useState({
     latitude: 37.78825,
     longitude: -122.4324,
     latitudeDelta: 0.0121,
     longitudeDelta: 0.0121,
   });
+
+  const keyExtractor = useCallback((item) => item._id);
 
   let mapIndex = 0;
   const mapAnimation = new Animated.Value(0);
@@ -167,10 +171,13 @@ const MapComponent = ({ apartments }) => {
           style={{ flex: 1, padding: 0 }}
         />
       </View>
-      <Animated.ScrollView
+      <Animated.FlatList
         horizontal
+        data={apartments}
         scrollEventThrottle={1}
         ref={scrollView}
+        renderItem={ApartmentCard}
+        keyExtractor={keyExtractor}
         showsHorizontalScrollIndicator={false}
         style={MapComponentStyle.scrollView}
         pagingEnabled
@@ -185,6 +192,8 @@ const MapComponent = ({ apartments }) => {
         contentContainerStyle={{
           paddingHorizontal: 0,
         }}
+        onEndReachedThreshold={0.25}
+        onEndReached={onEndReachedHandler}
         onScroll={Animated.event(
           [
             {
@@ -197,19 +206,18 @@ const MapComponent = ({ apartments }) => {
           ],
           { useNativeDriver: true },
         )}
-      >
-        {
-          apartments.map((item) => (
-            <ApartmentCard key={item._id} item={item} />
-          ))
-        }
-      </Animated.ScrollView>
+      />
     </View>
   );
 };
 
+MapComponent.defaultProps = {
+  onEndReachedHandler: () => {},
+};
+
 MapComponent.propTypes = {
   apartments: PropTypes.instanceOf(Array).isRequired,
+  onEndReachedHandler: PropTypes.func,
 };
 
 export default MapComponent;

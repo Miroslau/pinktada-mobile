@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { SafeAreaView } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import MapComponent from '../../components/map-component/MapComponent';
 import { apartmentSelector } from '../../store/slice/apartmentSlice';
@@ -22,6 +21,12 @@ const MapScreen = () => {
     priceRange, bedrooms, isMax, startDate, endDate,
   } = searchParams;
 
+  const [page, setPage] = useState(0);
+
+  const loadMoreApartments = () => {
+    setPage(page + 1);
+  };
+
   useEffect(() => {
     dispatch(
       searchApartments({
@@ -35,13 +40,11 @@ const MapScreen = () => {
         endDate,
       }),
     );
-  }, []);
-
-  console.log('apartments: ', apartments);
+  }, [page]);
 
   return (
   // eslint-disable-next-line no-use-before-define
-    <MapComponent apartments={apartments} />
+    <MapComponent onEndReachedHandler={loadMoreApartments} apartments={apartments} />
   );
 };
 
