@@ -10,7 +10,8 @@ import {
   View,
   TextInput,
   Animated,
-  Platform,
+  TouchableOpacity,
+  Text,
 } from 'react-native';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
@@ -23,7 +24,7 @@ const { width } = Dimensions.get('window');
 const CARD_WIDTH = width * 0.8;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
-const MapComponent = ({ apartments, onEndReachedHandler }) => {
+const MapComponent = ({ apartments, onEndReachedHandler, handleDragAndZoomMap }) => {
   const [region, setRegion] = useState({
     latitude: 37.78825,
     longitude: -122.4324,
@@ -70,20 +71,12 @@ const MapComponent = ({ apartments, onEndReachedHandler }) => {
     }
   };
 
-  const onMarkerPress = (e) => {
-    const markerId = e._targetInst.return.key;
-
-    let x = (markerId * CARD_WIDTH) + (markerId * 20);
-    if (Platform.OS === 'ios') {
-      // eslint-disable-next-line no-unused-vars
-      x -= SPACING_FOR_CARD_INSET;
-    }
-
-    scrollView.current.scrollTo({
-      x,
-      y: 0,
-      animated: true,
-    });
+  const getLocation = async () => {
+    const { northEast, southWest } = await mapRef.current.getMapBoundaries();
+    const { zoom } = await mapRef.current.getCamera();
+    const zoomRound = Math.round(zoom);
+    const coords = { northEast, southWest, zoomRound };
+    handleDragAndZoomMap(coords);
   };
 
   useEffect(() => {
@@ -131,7 +124,6 @@ const MapComponent = ({ apartments, onEndReachedHandler }) => {
         ref={mapRef}
         minZoomLevel={5}
         provider={PROVIDER_GOOGLE}
-        showsUserLocation
       >
         {
           apartments.map((item, index) => {
@@ -149,7 +141,6 @@ const MapComponent = ({ apartments, onEndReachedHandler }) => {
                   latitude: item.location.lat,
                   longitude: item.location.lon,
                 }}
-                onPress={onMarkerPress}
               >
                 <Animated.View style={[MapComponentStyle.markerWrap]}>
                   <Animated.Image
@@ -170,6 +161,11 @@ const MapComponent = ({ apartments, onEndReachedHandler }) => {
           autoCapitalize="none"
           style={{ flex: 1, padding: 0 }}
         />
+      </View>
+      <View style={MapComponentStyle.chipReset}>
+        <TouchableOpacity style={MapComponentStyle.chipsItem} onPress={getLocation}>
+          <Text>Search this area</Text>
+        </TouchableOpacity>
       </View>
       <Animated.FlatList
         horizontal
@@ -213,11 +209,13 @@ const MapComponent = ({ apartments, onEndReachedHandler }) => {
 
 MapComponent.defaultProps = {
   onEndReachedHandler: () => {},
+  handleDragAndZoomMap: () => {},
 };
 
 MapComponent.propTypes = {
   apartments: PropTypes.instanceOf(Array).isRequired,
   onEndReachedHandler: PropTypes.func,
+  handleDragAndZoomMap: PropTypes.func,
 };
 
 export default MapComponent;

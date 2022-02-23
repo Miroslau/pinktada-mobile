@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import MapComponent from '../../components/map-component/MapComponent';
-import { apartmentSelector } from '../../store/slice/apartmentSlice';
+import { apartmentSelector, setBounds, setPublicAddress } from '../../store/slice/apartmentSlice';
 import { searchApartments } from '../../store/actions/apartmentAction';
 
 const MapScreen = () => {
@@ -12,10 +12,7 @@ const MapScreen = () => {
     apartments,
     clusters,
     currentPage,
-    isFetching,
-    count,
     bounds,
-    isFetchAll,
   } = useSelector(apartmentSelector);
   const {
     priceRange, bedrooms, isMax, startDate, endDate,
@@ -25,6 +22,21 @@ const MapScreen = () => {
 
   const loadMoreApartments = () => {
     setPage(page + 1);
+  };
+
+  const handleDragAndZoomMap = (cords) => {
+    dispatch(setBounds(cords));
+    dispatch(setPublicAddress(''));
+    dispatch(
+      searchApartments({
+        currentPage: 0,
+        ...searchParams,
+        isFilter: true,
+        bounds: cords,
+        startDate,
+        endDate,
+      }),
+    );
   };
 
   useEffect(() => {
@@ -43,8 +55,11 @@ const MapScreen = () => {
   }, [page]);
 
   return (
-  // eslint-disable-next-line no-use-before-define
-    <MapComponent onEndReachedHandler={loadMoreApartments} apartments={apartments} />
+    <MapComponent
+      onEndReachedHandler={loadMoreApartments}
+      apartments={clusters.length !== 0 ? clusters : apartments}
+      handleDragAndZoomMap={handleDragAndZoomMap}
+    />
   );
 };
 
