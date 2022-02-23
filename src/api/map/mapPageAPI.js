@@ -17,13 +17,13 @@ export default {
     };
     if (isMax) params.priceTo = priceTo;
     if (bounds) {
-      params.neLat = bounds._northEast.lat;
-      params.neLng = bounds._northEast.lng;
-      params.swLat = bounds._southWest.lat;
-      params.swLng = bounds._southWest.lng;
-      params.zoom = bounds.zoom;
-      params.sizeX = bounds.size.x;
-      params.sizeY = bounds.size.y;
+      params.neLat = bounds.northEast.latitude;
+      params.neLng = bounds.northEast.longitude;
+      params.swLat = bounds.southWest.latitude;
+      params.swLng = bounds.southWest.longitude;
+      params.zoom = bounds.zoomRound;
+      params.sizeX = 800;
+      params.sizeY = 800;
     }
     if (bedrooms !== 0) params.bedrooms = bedrooms;
     return httpClient.get('/apartments/search', {
