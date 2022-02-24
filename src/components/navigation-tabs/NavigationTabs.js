@@ -21,6 +21,8 @@ const NavigationTabs = () => (
         backgroundColor: Platform.OS === 'android' ? colorPersianIndigo : colorWhite,
       },
       headerTintColor: Platform.OS === 'android' ? colorWhite : colorPersianIndigo,
+      tabBarStyle: TabBarStyle,
+      tabBarHideOnKeyboard: true,
     }}
   >
     {
