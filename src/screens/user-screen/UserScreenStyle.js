@@ -119,4 +119,29 @@ export const UserScreenStyle = StyleSheet.create({
     backgroundColor: colorVariables.colorEbonyClay,
     marginVertical: 10,
   },
+
+  visitHistoryBox: {
+    margin: 15,
+    height: 150,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0.5,
+      height: 0.5,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+    elevation: 5,
+  },
+  subText: {
+    fontSize: 20,
+    letterSpacing: 1,
+    fontWeight: 'bold',
+    color: colorVariables.colorFlamingo,
+  },
 });

@@ -23,7 +23,7 @@ const publicRoutes = [
     title: 'USER',
     Component: UserScreen,
     icon: require('../../assets/icons/user.png'),
-  },
+  }
 ];
 
 export default publicRoutes;
