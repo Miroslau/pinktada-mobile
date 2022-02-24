@@ -9,7 +9,7 @@ import RatingStar from '../rating-star/RatingStar';
 import { colorVariables } from '../../constants/colorVariables';
 
 const ApartmentCard = ({ item }) => (
-  <View key={item._id} style={ApartmentCardStyle.card}>
+  <View style={ApartmentCardStyle.card}>
     <Image
       source={{ uri: item.img }}
       style={ApartmentCardStyle.cardImage}
