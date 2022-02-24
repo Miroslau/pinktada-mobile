@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Alert } from 'react-native';
 import { clearState, userSelector } from '../../store/slice/userSlice';
 import { loginUser } from '../../store/actions/userAction';
 import LoginScreen from './login-screen/LoginScreen';
