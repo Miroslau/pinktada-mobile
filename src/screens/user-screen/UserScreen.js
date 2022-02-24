@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { ActivityIndicator } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearState, userSelector } from '../../store/slice/userSlice';
 import { loginUser, logoutUser } from '../../store/actions/userAction';
@@ -8,7 +7,7 @@ import ProfileScreen from './profile-screen/ProfileScreen';
 
 const UserScreen = () => {
   const dispatch = useDispatch();
-  const { isSuccess, token } = useSelector(userSelector);
+  const { isSuccess, token, errorMessage } = useSelector(userSelector);
 
   const signInUser = (user) => {
     dispatch(loginUser(user));
@@ -29,7 +28,8 @@ const UserScreen = () => {
   return (
     <>
       {
-        token ? <ProfileScreen logOutUser={logOutUser} /> : <LoginScreen signInUser={signInUser} />
+        token ? <ProfileScreen logOutUser={logOutUser} />
+          : <LoginScreen errorMessage={errorMessage} signInUser={signInUser} />
       }
     </>
   );

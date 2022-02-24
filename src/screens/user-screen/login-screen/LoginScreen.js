@@ -13,7 +13,7 @@ import padlock from '../../../../assets/icons/padlock.png';
 import useUserForm from '../../../hooks/useUserForm';
 import { validateUserErrors } from '../../../mixins/validateUserErrors';
 
-const LoginScreen = ({ signInUser }) => {
+const LoginScreen = ({ signInUser, errorMessage }) => {
   const {
     handleChange, handleSubmit, user, errors,
   } = useUserForm(signInUser, validateUserErrors);
@@ -55,7 +55,7 @@ const LoginScreen = ({ signInUser }) => {
             isIcon
             icon={padlock}
           />
-          <Text style={UserScreenStyle.msgBox}>...</Text>
+          <Text style={UserScreenStyle.msgBox}>{errorMessage}</Text>
           <TouchableOpacity
             style={UserScreenStyle.styledButton}
             onPress={handleSubmit}
@@ -70,6 +70,7 @@ const LoginScreen = ({ signInUser }) => {
 
 LoginScreen.propTypes = {
   signInUser: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string.isRequired,
 };
 
 export default LoginScreen;

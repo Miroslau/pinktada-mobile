@@ -2,6 +2,14 @@ import { StyleSheet } from 'react-native';
 import { colorVariables } from '../../constants/colorVariables';
 
 export const UserScreenStyle = StyleSheet.create({
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  loaderHorizontal: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
   container: {
     flex: 1,
     padding: 25,
@@ -103,6 +111,7 @@ export const UserScreenStyle = StyleSheet.create({
   msgBox: {
     textAlign: 'center',
     fontSize: 13,
+    color: colorVariables.colorFlamingo,
   },
   line: {
     height: 1,
