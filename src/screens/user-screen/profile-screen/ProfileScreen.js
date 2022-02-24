@@ -50,8 +50,8 @@ const ProfileScreen = (props) => {
         >
           <Text style={UserScreenStyle.subText}>Visit History</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={UserScreenStyle.visitHistoryBox}>
-          <Text style={UserScreenStyle.subText} onPress={visitTrips}>Upcoming Trips</Text>
+        <TouchableOpacity style={UserScreenStyle.visitHistoryBox} onPress={visitTrips}>
+          <Text style={UserScreenStyle.subText}>Upcoming Trips</Text>
         </TouchableOpacity>
       </View>
       <Button color={colorVariables.colorPermision} title="Logout" onPress={logOutUser} />

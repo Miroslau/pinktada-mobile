@@ -52,7 +52,9 @@ const HomeScreen = ({ navigation }) => {
           setPopularRooms(data);
         }
       })
-      .catch((err) => err.message);
+      .catch(() => {
+        setIsLoading(false);
+      });
   }, [hasMounted, startDate, endDate]);
 
   useEffect(() => {

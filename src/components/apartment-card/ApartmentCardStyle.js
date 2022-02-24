@@ -9,7 +9,7 @@ const apartmentCardStyle = StyleSheet.create({
     backgroundColor: colorVariables.colorWhite,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
-    marginHorizontal: 10,
+    marginVertical: 10,
     shadowColor: colorVariables.colorBlack,
     shadowRadius: 5,
     shadowOpacity: 0.3,
