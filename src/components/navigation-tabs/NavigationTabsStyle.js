@@ -43,11 +43,6 @@ const NavigationTabsStyle = StyleSheet.create({
 });
 const TabBarStyle = {
   height: 60,
-  position: 'absolute',
-  bottom: 16,
-  right: 16,
-  left: 16,
-  borderRadius: 16,
 };
 
 export { NavigationTabsStyle, TabBarStyle };
