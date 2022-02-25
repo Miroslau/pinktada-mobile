@@ -5,6 +5,7 @@ import {
   PROVIDER_GOOGLE, Marker,
 } from 'react-native-maps';
 import MapView from 'react-native-map-clustering';
+import { useNavigation } from '@react-navigation/native';
 import {
   Dimensions,
   View,
@@ -24,7 +25,9 @@ const { width } = Dimensions.get('window');
 const CARD_WIDTH = width * 0.8;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
-const MapComponent = ({ apartments, onEndReachedHandler, handleDragAndZoomMap }) => {
+const MapComponent = ({
+  apartments, onEndReachedHandler, handleDragAndZoomMap,
+}) => {
   const [region, setRegion] = useState({
     latitude: 37.78825,
     longitude: -122.4324,
@@ -33,6 +36,7 @@ const MapComponent = ({ apartments, onEndReachedHandler, handleDragAndZoomMap })
   });
 
   const keyExtractor = useCallback((item) => item._id);
+  const navigation = useNavigation();
 
   let mapIndex = 0;
   const mapAnimation = new Animated.Value(0);
@@ -78,6 +82,14 @@ const MapComponent = ({ apartments, onEndReachedHandler, handleDragAndZoomMap })
     const coords = { northEast, southWest, zoomRound };
     handleDragAndZoomMap(coords);
   };
+
+  const navigateToRoom = (item) => {
+    navigation.navigate('Room', { item });
+  };
+
+  // eslint-disable-next-line max-len
+  // eslint-disable-next-line react/prop-types,max-len,react/no-unstable-nested-components,react/destructuring-assignment
+  const ApartmentItem = (item) => <ApartmentCard item={item.item} navigateHandler={navigateToRoom} />;
 
   useEffect(() => {
     getYourCurrentLocation();
@@ -172,7 +184,7 @@ const MapComponent = ({ apartments, onEndReachedHandler, handleDragAndZoomMap })
         data={apartments}
         scrollEventThrottle={1}
         ref={scrollView}
-        renderItem={ApartmentCard}
+        renderItem={ApartmentItem}
         keyExtractor={keyExtractor}
         showsHorizontalScrollIndicator={false}
         style={MapComponentStyle.scrollView}
