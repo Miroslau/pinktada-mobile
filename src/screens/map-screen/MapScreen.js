@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import PropTypes from 'prop-types';
 import MapComponent from '../../components/map-component/MapComponent';
 import { apartmentSelector, setBounds, setPublicAddress } from '../../store/slice/apartmentSlice';
 import { searchApartments } from '../../store/actions/apartmentAction';
