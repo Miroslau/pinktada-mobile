@@ -1,5 +1,6 @@
 import HomeScreen from '../screens/home-screen/HomeScreen';
 import MapScreen from '../screens/map-screen/MapScreen';
+import RoomScreen from '../screens/room-screen/RoomScreen';
 
 const publicRoutes = [
   {
@@ -15,6 +16,12 @@ const publicRoutes = [
     title: 'MAP',
     Component: MapScreen,
     icon: require('../../assets/icons/map.png'),
+  },
+  {
+    id: 'room',
+    name: 'Room',
+    title: 'ROOM',
+    Component: RoomScreen,
   },
 ];
 
