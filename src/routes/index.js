@@ -1,14 +1,13 @@
-import HomeScreen from '../screens/home-screen/HomeScreen';
 import MapScreen from '../screens/map-screen/MapScreen';
 import UserScreen from '../screens/user-screen/UserScreen';
-import RoomScreen from '../screens/room-screen/RoomScreen';
+import MainScreen from '../screens/main-screen/MainScreen';
 
 const publicRoutes = [
   {
-    id: 'home',
-    name: 'Home',
+    id: 'main',
+    name: 'Main',
     title: 'HOME',
-    Component: HomeScreen,
+    Component: MainScreen,
     icon: require('../../assets/icons/home.png'),
   },
   {
@@ -24,12 +23,6 @@ const publicRoutes = [
     title: 'USER',
     Component: UserScreen,
     icon: require('../../assets/icons/user.png'),
-  },
-  {
-    id: 'room',
-    name: 'Room',
-    title: 'ROOM',
-    Component: RoomScreen,
   },
 ];
 

@@ -9,7 +9,7 @@ import RatingStar from '../rating-star/RatingStar';
 import { colorVariables } from '../../constants/colorVariables';
 
 const ApartmentCard = ({ item, navigateHandler }) => {
-
+  // eslint-disable-next-line no-shadow
   const openRoomScreen = (item) => {
     console.log('room: ', item);
     navigateHandler(item);
@@ -26,11 +26,14 @@ const ApartmentCard = ({ item, navigateHandler }) => {
         <Text numberOfLines={1} style={ApartmentCardStyle.cardTitle}>{item.name}</Text>
         <RatingStar rating={item.rating} reviews={item.reviews} />
         <Text numberOfLines={1} style={ApartmentCardStyle.cardDescription}>{item.address}</Text>
-        <View style={ApartmentCardStyle.button} >
-          <TouchableOpacity style={[ApartmentCardStyle.signIn, {
-            borderWidth: 1,
-            borderColor: colorVariables.colorPermision,
-          }]} onPress={openRoomScreen.bind(this, item)}
+        <View style={ApartmentCardStyle.button}>
+          <TouchableOpacity
+            style={[ApartmentCardStyle.signIn, {
+              borderWidth: 1,
+              borderColor: colorVariables.colorPermision,
+            }]}
+            // eslint-disable-next-line react/jsx-no-bind
+            onPress={openRoomScreen.bind(this, item)}
           >
             <Text style={[ApartmentCardStyle.textSign, {
               color: colorVariables.colorPermision,
@@ -47,8 +50,13 @@ const ApartmentCard = ({ item, navigateHandler }) => {
   );
 };
 
+ApartmentCard.defaultProps = {
+  navigateHandler: () => {},
+};
+
 ApartmentCard.propTypes = {
   item: PropTypes.instanceOf(Object).isRequired,
+  navigateHandler: PropTypes.func,
 };
 
 export default ApartmentCard;

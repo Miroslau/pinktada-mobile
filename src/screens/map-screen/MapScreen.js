@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import PropTypes from 'prop-types';
 import MapComponent from '../../components/map-component/MapComponent';
 import { apartmentSelector, setBounds, setPublicAddress } from '../../store/slice/apartmentSlice';
 import { searchApartments } from '../../store/actions/apartmentAction';
 
-const MapScreen = ({navigation}) => {
+const MapScreen = () => {
   const dispatch = useDispatch();
   const {
     publicAddress,
@@ -55,7 +57,7 @@ const MapScreen = ({navigation}) => {
   }, [page]);
 
   return (
-    <MapComponent navigation={navigation}
+    <MapComponent
       onEndReachedHandler={loadMoreApartments}
       apartments={clusters.length !== 0 ? clusters : apartments}
       handleDragAndZoomMap={handleDragAndZoomMap}
