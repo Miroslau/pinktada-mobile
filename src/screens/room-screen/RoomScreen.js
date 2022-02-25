@@ -3,6 +3,7 @@ import {
   View, Text, ScrollView, Image, Button,
 } from 'react-native';
 import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import { apartmentSelector } from '../../store/slice/apartmentSlice';
 import getRoom from '../../api/get-room-by-id/getRoomById';
 import RoomScreenStyle from './RoomScreenStyle';
@@ -21,6 +22,7 @@ const RoomScreen = ({ route }) => {
   const [roomInfo, setRoomInfo] = useState({});
   const [data, setData] = useState([]);
   const { startDate, endDate } = searchParams;
+  const navigation = useNavigation();
 
   const {
     token,
@@ -36,6 +38,11 @@ const RoomScreen = ({ route }) => {
   return (
     <ScrollView>
       <View>
+        <Button
+          style={RoomScreenStyle.button}
+          title="Come back"
+          onPress={() => navigation.goBack()}
+        />
         <Text style={RoomScreenStyle.textSign}>
           {roomInfo.name}
         </Text>

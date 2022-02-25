@@ -25,7 +25,7 @@ const RoomScreenStyle = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
-    marginTop: 5,
+    marginVertical: 15,
   },
   ratingView: {
     marginLeft: 5,
