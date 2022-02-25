@@ -9,4 +9,10 @@ export const colorVariables = {
   colorSilver: '#ccc',
   colorTundora: '#444',
   colorPermision: '#FF6347',
+  colorAthensGray: '#E5E7EB',
+  colorEbonyClay: '#1f2937',
+  colorGrayChateau: '#9ca3af',
+  colorPurpleHeart: '#6d28d9',
+  colorMountainMeadow: '#10b981',
+  colorFlamingo: '#ef4444',
 };
