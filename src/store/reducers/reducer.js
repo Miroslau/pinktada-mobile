@@ -10,9 +10,12 @@ const reducers = combineReducers({
 
 const rootReducer = (state, action) => {
   if (action.type === 'users/LogoutUser/fulfilled') {
-    AsyncStorage.removeItem('persist:user');
-    const { apartment } = state;
-    state = { apartment };
+    AsyncStorage.removeItem('persist:user')
+      .then(() => {
+        const { apartment } = state;
+        state = { apartment };
+      })
+      .catch((error) => console.error(error));
   }
   return reducers(state, action);
 };
