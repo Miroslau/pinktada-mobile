@@ -1,14 +1,14 @@
-import { StyleSheet, Dimensions } from 'react-native';
-import { colorVariables } from '../../constants/colorVariables';
+import { StyleSheet } from 'react-native';
 
 
 const RoomScreenStyle = StyleSheet.create({
   roomImage: {
-    // flex: 3,
-    marginTop: 100,
-    width: 100,
-    height: 100,
-    // alignSelf: 'center',
+    borderRadius: 5,
+    marginTop: 10,
+    width: '90%',
+    height: 300,
+    marginBottom: 10,
+    alignSelf: 'center',
   },
   textContent: {
     marginTop: 10,

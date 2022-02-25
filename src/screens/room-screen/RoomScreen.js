@@ -9,6 +9,7 @@ import RoomScreenStyle from './RoomScreenStyle';
 import RatingStar from '../../components/rating-star/RatingStar';
 import { colorVariables } from '../../constants/colorVariables';
 import CaruselBarRoom from '../../components/carusel-bar/CarouselBarRooms';
+import { userSelector } from '../../store/slice/userSlice';
 
 const Separator = () => (
   <View style={RoomScreenStyle.separator} />
@@ -18,12 +19,16 @@ const RoomScreen = ({ route }) => {
   const { item } = route.params;
   const { searchParams } = useSelector(apartmentSelector);
   const [roomInfo, setRoomInfo] = useState({});
+  const [data, setData] = useState([]);
   const { startDate, endDate } = searchParams;
+
+  const {
+    token,
+  } = useSelector(userSelector);
 
   useEffect(() => {
     getRoom.getRoomById(item._id, startDate, endDate).then((res) => {
-      // console.log(pic);
-      console.log(res.data);
+      setData(res.data.images);
       setRoomInfo(res.data);
     });
   }, []);
@@ -55,12 +60,17 @@ const RoomScreen = ({ route }) => {
           {roomInfo.address}
         </Text>
       </View>
-      {/* <View> */}
-      {/*  <CaruselBarRoom style={RoomScreenStyle.carousel} data={roomInfo.images} /> */}
-      {/* </View> */}
-      <View style={RoomScreenStyle.button}>
-        <Button title="BOOK NOW" color={colorVariables.colorPersianIndigo} />
+      <View>
+        <CaruselBarRoom style={RoomScreenStyle.carousel} data={data} />
       </View>
+      {
+        token && (
+        <View style={RoomScreenStyle.button}>
+          <Button title="BOOK NOW" color={colorVariables.colorPersianIndigo} />
+        </View>
+        )
+      }
+
     </ScrollView>
   );
 };

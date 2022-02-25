@@ -18,7 +18,7 @@ const ACTIVE_OPACITY = 0.3;
 const CONTAINER_WIDTH = 0.9;
 const { width: windowWidth } = Dimensions.get('window');
 
-const CaruselBarRoom = ({ data, pressItem }) => {
+const CaruselBarRoom = ({ data }) => {
   const carouselRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(INITIAL_INDEX);
 
@@ -27,13 +27,11 @@ const CaruselBarRoom = ({ data, pressItem }) => {
   };
 
   const renderItem = ({ item, index }) => {
-    const { imageUrl, publicAddress, image } = item;
-    const itemImage = imageUrl || image;
-
+    const { imageUrl, picture } = item;
+    const itemImage = imageUrl || picture;
     // eslint-disable-next-line no-shadow
     const pressHandler = (item, index) => {
       carouselRef.current.scrollToIndex(index);
-      pressItem(item);
     };
 
     return (

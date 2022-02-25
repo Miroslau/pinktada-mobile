@@ -4,7 +4,7 @@ import MapComponent from '../../components/map-component/MapComponent';
 import { apartmentSelector, setBounds, setPublicAddress } from '../../store/slice/apartmentSlice';
 import { searchApartments } from '../../store/actions/apartmentAction';
 
-const MapScreen = () => {
+const MapScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const {
     publicAddress,
@@ -55,7 +55,7 @@ const MapScreen = () => {
   }, [page]);
 
   return (
-    <MapComponent
+    <MapComponent navigation={navigation}
       onEndReachedHandler={loadMoreApartments}
       apartments={clusters.length !== 0 ? clusters : apartments}
       handleDragAndZoomMap={handleDragAndZoomMap}

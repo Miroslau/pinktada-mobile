@@ -24,7 +24,7 @@ const { width } = Dimensions.get('window');
 const CARD_WIDTH = width * 0.8;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
-const MapComponent = ({ apartments, onEndReachedHandler, handleDragAndZoomMap }) => {
+const MapComponent = ({ apartments, onEndReachedHandler, handleDragAndZoomMap, navigation }) => {
   const [region, setRegion] = useState({
     latitude: 37.78825,
     longitude: -122.4324,
@@ -77,6 +77,15 @@ const MapComponent = ({ apartments, onEndReachedHandler, handleDragAndZoomMap })
     const zoomRound = Math.round(zoom);
     const coords = { northEast, southWest, zoomRound };
     handleDragAndZoomMap(coords);
+  };
+
+  const navigateToRoom = (item) => {
+    console.log('item: ', item);
+    navigation.navigate('Room', {item});
+  }
+
+  const ApartmentItem = (item) => {
+    return <ApartmentCard item={item.item} navigateHandler={navigateToRoom} />
   };
 
   useEffect(() => {
@@ -172,7 +181,7 @@ const MapComponent = ({ apartments, onEndReachedHandler, handleDragAndZoomMap })
         data={apartments}
         scrollEventThrottle={1}
         ref={scrollView}
-        renderItem={ApartmentCard}
+        renderItem={ApartmentItem}
         keyExtractor={keyExtractor}
         showsHorizontalScrollIndicator={false}
         style={MapComponentStyle.scrollView}

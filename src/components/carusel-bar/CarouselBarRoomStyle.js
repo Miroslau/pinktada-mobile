@@ -2,7 +2,6 @@ import { StyleSheet } from 'react-native';
 
 export const CaruselBarRoomStyle = StyleSheet.create({
   container: {
-    height: 150,
     paddingVertical: 20,
     paddingHorizontal: 20,
   },
@@ -12,10 +11,12 @@ export const CaruselBarRoomStyle = StyleSheet.create({
     marginBottom: 20,
   },
   item: {
-    width: 180,
+    width: '90%',
+    borderWidth: 2,
     backgroundColor: 'white',
     flex: 1,
-
+    borderRadius: 5,
+    borderColor: 'white',
     elevation: 3,
   },
   imageBackground: {
