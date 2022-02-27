@@ -16,8 +16,8 @@ const HistoryScreen = () => {
   const [visitHistory, setVisitHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const hasMounted = useMountedState();
-  const navigation = useNavigation();
 
+  const navigation = useNavigation();
   const keyExtractor = useCallback((item) => {
     const { room } = item;
     return room._id;

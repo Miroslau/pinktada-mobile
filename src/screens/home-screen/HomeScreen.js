@@ -76,7 +76,7 @@ const HomeScreen = ({ navigation }) => {
   };
 
   const openRoomScreen = (item) => {
-    console.log('room: ', item);
+    navigation.navigate('Room', { item });
   };
 
   const toogleModalSearch = () => setModalVisible(!modalVisible);
