@@ -99,12 +99,14 @@ const HomeScreen = ({ navigation }) => {
                   visible={modalVisible}
                   transparent
                 >
-                  <SearchSettings />
+                  <SearchSettings data={majorCities}/>
                 </Modal>
               </GestureRecognizer>
               <View style={HomeScreenStyle.homeContainer}>
                 <View style={HomeScreenStyle.buttonBlock}>
-                  <ButtonIcon pressHandler={toogleModalSearch} icon={iconSearch} title="Where are you going?" />
+                  <ButtonIcon pressHandler={toogleModalSearch} 
+                              icon={iconSearch} title="Where are you going?" 
+                              />
                 </View>
                 <View style={HomeScreenStyle.block}>
                   <View style={HomeScreenStyle.textContainer}>

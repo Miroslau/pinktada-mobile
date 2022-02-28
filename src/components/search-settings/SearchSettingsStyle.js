@@ -13,7 +13,7 @@ export const SearchSettingsStyle = StyleSheet.create({
     right: 0,
     position: 'absolute',
     width: '100%',
-    backgroundColor: 'white',
+    backgroundColor: '#ebeff2',
     alignItems: 'center',
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
@@ -39,14 +39,15 @@ export const SearchSettingsStyle = StyleSheet.create({
 
   formContainer: {
     flex: 1,
-    borderWidth: 1,
     borderColor: 'black',
     alignItems: 'center',
+    width: Dimensions.get('window').width * 1,
   },
 
   dateStyle: {
     flexDirection: 'row',
-    borderWidth: 1,
+    marginTop: 15,
+    marginBottom: 15,
     borderColor: 'black',
     alignItems: 'center',
     justifyContent: 'space-around',
@@ -59,6 +60,7 @@ export const SearchSettingsStyle = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 20,
     padding: 10,
+    marginBottom: 15,
   },
 
   icon: {
@@ -69,8 +71,8 @@ export const SearchSettingsStyle = StyleSheet.create({
   bedroomCount: {
     width: Dimensions.get('window').width * 0.7,
     borderColor: colorVariables.colorGray,
-    borderWidth: 1,
     borderRadius: 20,
+    marginTop: 15,
     padding: 10,
     flex: 1,
     justifyContent: 'space-around',
@@ -111,7 +113,7 @@ export const SearchSettingsStyle = StyleSheet.create({
 
   searchIconButton: {
     marginTop: 50,
-    padding: 10,
+    padding: 15,
     borderColor: colorVariables.colorBlack,
     borderRadius: 40,
     backgroundColor: '#fff2cc',

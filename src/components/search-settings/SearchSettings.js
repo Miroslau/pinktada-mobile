@@ -5,13 +5,15 @@ import {
 } from 'react-native';
 import { debounce } from 'lodash';
 import moment from 'moment';
-import { setDate, setDateParams } from '../../store/slice/apartmentSlice';
+import { setDate, setDateParams, setPublicAddress, setParams } from '../../store/slice/apartmentSlice';
 import { SearchSettingsStyle } from './SearchSettingsStyle';
 import SearchDropDown from '../search-drop-down/SearchDropDown';
 import searchLocationApi from '../../api/search-location/searchLocationApi';
 import calendar from '../../../assets/icons/calendar.png';
 import searchIcon from '../../../assets/icons/search.png';
 import DatePicker from '../date-picker/DatePicker';
+import PropTypes from 'prop-types';
+import { useNavigation } from '@react-navigation/native';
 
 const START_DATE = 'Start Date';
 const END_DATE = 'End Date';
@@ -32,6 +34,8 @@ const SearchSettings = () => {
   const [roomCounter, setRoomCounter] = useState(0);
   // eslint-disable-next-line max-len
   const [endDateValue, setEndDateValue] = useState(new Date(new Date().setDate(new Date().getDate() + 1)));
+  const navigation = useNavigation();
+  
 
   const setStartDay = (value) => {
     const { type, nativeEvent } = value;
@@ -91,6 +95,12 @@ const SearchSettings = () => {
     setRoomCounter(roomCounter - 1);
   };
 
+  const clickSearchHandler = () => {
+    dispatch(setPublicAddress(textValue));
+    dispatch(setParams({bedrooms: roomCounter }));
+    navigation.navigate('Map');
+  };
+
 
   return (
     <View style={SearchSettingsStyle.modalView}>
@@ -126,7 +136,7 @@ const SearchSettings = () => {
             onPress={() => setOpenEndDay(true)}
           >
             <Image style={SearchSettingsStyle.icon} resizeMode="contain" source={calendar} />
-            <Text style={SearchSettingsStyle.text}>{`${END_DATE}: `}</Text>
+            <Text style={SearchSettingsStyle.text}>{`${END_DATE}:   `}</Text>
             <Text style={SearchSettingsStyle.text}>{moment(endDateValue).format('YYYY-MM-DD')}</Text>
           </TouchableOpacity>
           <View style={SearchSettingsStyle.bedroomCount}>
@@ -145,7 +155,11 @@ const SearchSettings = () => {
             </TouchableOpacity>
           </View>
           <View>
-            <TouchableOpacity style={SearchSettingsStyle.searchIconButton}>
+            <TouchableOpacity 
+              style={SearchSettingsStyle.searchIconButton}
+              onPress={clickSearchHandler}
+              data={textValue, roomCounter}
+              >
               <Image style={SearchSettingsStyle.searchIcon} resizeMode='contain' source={searchIcon}/>
             </TouchableOpacity>
           </View>
