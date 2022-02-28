@@ -46,6 +46,7 @@ export const userSlice = createSlice({
       state.firstName = payload.firstName;
       state.lastName = payload.lastName;
       state.token = payload.accessToken;
+      state.errorMessage = '';
       return state;
     },
     [loginUser.pending]: (state) => {

@@ -4,6 +4,8 @@ import {
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import PropTypes from 'prop-types';
 import { apartmentSelector } from '../../store/slice/apartmentSlice';
 import getRoom from '../../api/get-room-by-id/getRoomById';
 import RoomScreenStyle from './RoomScreenStyle';
@@ -20,13 +22,23 @@ const RoomScreen = ({ route }) => {
   const { item } = route.params;
   const { searchParams } = useSelector(apartmentSelector);
   const [roomInfo, setRoomInfo] = useState({});
+  const { isBooked } = roomInfo;
   const [data, setData] = useState([]);
   const { startDate, endDate } = searchParams;
+  const differenceDatesInTime = new Date(endDate).getTime() - new Date(startDate).getTime();
+  const differenceDatesInDays = differenceDatesInTime / (1000 * 3600 * 24);
   const navigation = useNavigation();
 
   const {
     token,
   } = useSelector(userSelector);
+
+  const redirectToPaymentScreen = () => {
+    const { price, _id } = roomInfo;
+    const parsedPrice = price.slice(1);
+    const totalPrice = Math.round(differenceDatesInDays * parsedPrice);
+    navigation.navigate('Payment', { _id, totalPrice });
+  };
 
   useEffect(() => {
     getRoom.getRoomById(item._id, startDate, endDate).then((res) => {
@@ -71,15 +83,25 @@ const RoomScreen = ({ route }) => {
         <CaruselBarRoom style={RoomScreenStyle.carousel} data={data} />
       </View>
       {
-        token && (
+        token && !isBooked && (
         <View style={RoomScreenStyle.button}>
-          <Button title="BOOK NOW" color={colorVariables.colorPersianIndigo} />
+          <Button onPress={redirectToPaymentScreen} title="BOOK NOW" color={colorVariables.colorPersianIndigo} />
         </View>
         )
       }
-
+      {
+          token && isBooked && <Text>This room is booked on this dates</Text>
+      }
     </ScrollView>
   );
+};
+
+RoomScreen.defaultProps = {
+  route: null,
+};
+
+RoomScreen.propTypes = {
+  route: PropTypes.instanceOf(Object),
 };
 
 export default RoomScreen;
