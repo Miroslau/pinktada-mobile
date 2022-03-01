@@ -18,7 +18,6 @@ import iconSearch from '../../../assets/icons/search.png';
 import SearchSettings from '../../components/search-settings/SearchSettings';
 import { setPublicAddress, apartmentSelector, clearState } from '../../store/slice/apartmentSlice';
 
-
 const PREFIX = 'major_cities_';
 const SIZE = 'large';
 
@@ -30,11 +29,11 @@ const HomeScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const hasMounted = useMountedState();
-  
 
   const { startDate, endDate } = useSelector(apartmentSelector);
 
   useEffect(() => {
+    console.log('update');
     dispatch(clearState());
   }, []);
 
@@ -81,7 +80,6 @@ const HomeScreen = ({ navigation }) => {
 
   const toogleModalSearch = () => setModalVisible(!modalVisible);
 
-
   return (
   // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
@@ -99,14 +97,16 @@ const HomeScreen = ({ navigation }) => {
                   visible={modalVisible}
                   transparent
                 >
-                  <SearchSettings/>
+                  <SearchSettings />
                 </Modal>
               </GestureRecognizer>
               <View style={HomeScreenStyle.homeContainer}>
                 <View style={HomeScreenStyle.buttonBlock}>
-                  <ButtonIcon pressHandler={toogleModalSearch} 
-                              icon={iconSearch} title="Where are you going?" 
-                              />
+                  <ButtonIcon
+                    pressHandler={toogleModalSearch}
+                    icon={iconSearch}
+                    title="Where are you going?"
+                  />
                 </View>
                 <View style={HomeScreenStyle.block}>
                   <View style={HomeScreenStyle.textContainer}>

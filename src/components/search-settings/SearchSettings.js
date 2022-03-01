@@ -1,18 +1,20 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  View, TextInput, Text, Image, TouchableOpacity, Button
+  View, TextInput, Text, Image, TouchableOpacity,
 } from 'react-native';
 import { debounce } from 'lodash';
 import moment from 'moment';
-import { setDate, setDateParams, setPublicAddress, setParams } from '../../store/slice/apartmentSlice';
+import { useNavigation } from '@react-navigation/native';
+import {
+  setDate, setDateParams, setPublicAddress, setParams,
+} from '../../store/slice/apartmentSlice';
 import { SearchSettingsStyle } from './SearchSettingsStyle';
 import SearchDropDown from '../search-drop-down/SearchDropDown';
 import searchLocationApi from '../../api/search-location/searchLocationApi';
 import calendar from '../../../assets/icons/calendar.png';
 import searchIcon from '../../../assets/icons/search.png';
 import DatePicker from '../date-picker/DatePicker';
-import { useNavigation } from '@react-navigation/native';
 
 const START_DATE = 'Start Date';
 const END_DATE = 'End Date';
@@ -34,7 +36,6 @@ const SearchSettings = () => {
   // eslint-disable-next-line max-len
   const [endDateValue, setEndDateValue] = useState(new Date(new Date().setDate(new Date().getDate() + 1)));
   const navigation = useNavigation();
-  
 
   const setStartDay = (value) => {
     const { type, nativeEvent } = value;
@@ -100,7 +101,6 @@ const SearchSettings = () => {
     navigation.navigate('Map');
   };
 
-
   return (
     <View style={SearchSettingsStyle.modalView}>
       <View style={SearchSettingsStyle.modalContainer}>
@@ -140,26 +140,34 @@ const SearchSettings = () => {
           </TouchableOpacity>
           <View style={SearchSettingsStyle.bedroomCount}>
             <TouchableOpacity
-              style={roomCounter === MAX_ROOM ? SearchSettingsStyle.bedroomCountButtonDisabled : SearchSettingsStyle.bedroomCountButton}
+              style={roomCounter === MAX_ROOM ? SearchSettingsStyle.bedroomCountButtonDisabled
+                : SearchSettingsStyle.bedroomCountButton}
               onPress={addRoom}
-              disabled={roomCounter === MAX_ROOM}>
+              disabled={roomCounter === MAX_ROOM}
+            >
               <Text style={SearchSettingsStyle.bedroomCountButtonText}>+</Text>
             </TouchableOpacity>
-            {roomCounter ? <Text>Bedroom count: {roomCounter}</Text> : <Text>Bedroom count  </Text>}
+            {roomCounter ? (
+              <Text>
+                Bedroom count:
+                {roomCounter}
+              </Text>
+            ) : <Text>Bedroom count  </Text>}
             <TouchableOpacity
-              style={roomCounter === MIN_ROOM ? SearchSettingsStyle.bedroomCountButtonDisabled : SearchSettingsStyle.bedroomCountButton}
+              style={roomCounter === MIN_ROOM ? SearchSettingsStyle.bedroomCountButtonDisabled
+                : SearchSettingsStyle.bedroomCountButton}
               onPress={removeRoom}
-              disabled={roomCounter === MIN_ROOM}>
+              disabled={roomCounter === MIN_ROOM}
+            >
               <Text style={SearchSettingsStyle.bedroomCountButtonText}>-</Text>
             </TouchableOpacity>
           </View>
           <View>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={SearchSettingsStyle.searchIconButton}
               onPress={clickSearchHandler}
-              data={textValue, roomCounter}
-              >
-              <Image style={SearchSettingsStyle.searchIcon} resizeMode='contain' source={searchIcon}/>
+            >
+              <Image style={SearchSettingsStyle.searchIcon} resizeMode="contain" source={searchIcon} />
             </TouchableOpacity>
           </View>
         </View>

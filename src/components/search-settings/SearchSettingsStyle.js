@@ -86,8 +86,8 @@ export const SearchSettingsStyle = StyleSheet.create({
     borderColor: colorVariables.colorBlack,
     borderRadius: 35,
     alignItems: 'center',
-    backgroundColor: "#eeeeee",
-    shadowColor: "#000",
+    backgroundColor: '#eeeeee',
+    shadowColor: '#000',
     shadowOpacity: 0.58,
     shadowRadius: 16.00,
     elevation: 10,
@@ -99,17 +99,15 @@ export const SearchSettingsStyle = StyleSheet.create({
     borderRadius: 35,
     alignItems: 'center',
     backgroundColor: '#eeeeee',
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOpacity: 0.58,
     shadowRadius: 16.00,
     elevation: 2,
   },
 
-
   bedroomCountButtonText: {
     fontSize: 25,
   },
-
 
   searchIconButton: {
     marginTop: 50,
@@ -117,7 +115,7 @@ export const SearchSettingsStyle = StyleSheet.create({
     borderColor: colorVariables.colorBlack,
     borderRadius: 40,
     backgroundColor: '#fff2cc',
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOpacity: 0.58,
     shadowRadius: 16.00,
     elevation: 15,

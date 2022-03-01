@@ -46,6 +46,10 @@ const mapComponentStyle = StyleSheet.create({
     paddingHorizontal: 10,
     height: 50,
   },
+  button: {
+    alignItems: 'center',
+    marginVertical: 15,
+  },
   chipsItem: {
     flexDirection: 'row',
     backgroundColor: colorVariables.colorWhite,
