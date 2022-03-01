@@ -127,4 +127,9 @@ export const SearchSettingsStyle = StyleSheet.create({
     width: 35,
     height: 35,
   },
+
+  button: {
+    alignItems: 'center',
+    marginVertical: 15,
+  },
 });

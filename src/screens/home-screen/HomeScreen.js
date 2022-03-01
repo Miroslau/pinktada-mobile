@@ -99,7 +99,7 @@ const HomeScreen = ({ navigation }) => {
                   visible={modalVisible}
                   transparent
                 >
-                  <SearchSettings data={majorCities}/>
+                  <SearchSettings/>
                 </Modal>
               </GestureRecognizer>
               <View style={HomeScreenStyle.homeContainer}>

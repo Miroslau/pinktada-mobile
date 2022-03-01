@@ -12,7 +12,6 @@ import searchLocationApi from '../../api/search-location/searchLocationApi';
 import calendar from '../../../assets/icons/calendar.png';
 import searchIcon from '../../../assets/icons/search.png';
 import DatePicker from '../date-picker/DatePicker';
-import PropTypes from 'prop-types';
 import { useNavigation } from '@react-navigation/native';
 
 const START_DATE = 'Start Date';
@@ -96,8 +95,8 @@ const SearchSettings = () => {
   };
 
   const clickSearchHandler = () => {
-    dispatch(setPublicAddress(textValue));
-    dispatch(setParams({bedrooms: roomCounter }));
+    dispatch(setPublicAddress({ publicAddress: textValue }));
+    dispatch(setParams({ bedrooms: roomCounter }));
     navigation.navigate('Map');
   };
 
