@@ -63,7 +63,6 @@ const MapScreen = () => {
   };
 
   useEffect(() => {
-    console.log(priceRange)
     dispatch(
       searchApartments({
         publicAddress,

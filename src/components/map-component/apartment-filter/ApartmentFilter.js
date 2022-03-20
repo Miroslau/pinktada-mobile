@@ -26,8 +26,6 @@ const ApartmentFilter = ({openClosed, apartmentFilter}) => {
     setFilterParams((prevState) => ({
       ...prevState,
       priceRange: newValue,
-      isMinInput: false,
-      isMaxInput: false,
     }));
   }; 
 
@@ -61,7 +59,7 @@ const ApartmentFilter = ({openClosed, apartmentFilter}) => {
         <View style={ApartmentFilterStyle.line} />
         <View style={ApartmentFilterStyle.formContainer}>
           <View style={ApartmentFilterStyle.priceContainer}>
-            <Text style={{fontSize: 16, fontWeight: '700'}}> Price Range </Text>
+            <Text style={{fontSize: 16, fontWeight: '500'}}> Price Range </Text>
             <View style={ApartmentFilterStyle.price}>
               <Text>min: {filtersParams.priceRange[0]}</Text>
               <Text>max: {filtersParams.priceRange[1]}</Text>
@@ -87,8 +85,7 @@ const ApartmentFilter = ({openClosed, apartmentFilter}) => {
             </TouchableOpacity>
             {filtersParams.bedrooms ? (
               <Text>
-                Bedroom count: 
-                {filtersParams.bedrooms}
+                Bedroom count: {filtersParams.bedrooms}
               </Text>
             ) : <Text>Bedroom count  </Text>}
             <TouchableOpacity
