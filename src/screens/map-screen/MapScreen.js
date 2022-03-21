@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
 import MapComponent from '../../components/map-component/MapComponent';
-import { apartmentSelector, setBounds, setPublicAddress } from '../../store/slice/apartmentSlice';
+import { apartmentSelector, setBounds, setPublicAddress, setParams } from '../../store/slice/apartmentSlice';
 import { searchApartments } from '../../store/actions/apartmentAction';
 
 const MapScreen = () => {
@@ -21,9 +21,30 @@ const MapScreen = () => {
   } = searchParams;
 
   const [page, setPage] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
 
   const loadMoreApartments = () => {
     setPage(page + 1);
+  };
+
+  const handleModal = (value) => {
+    setIsVisible(value);
+  };
+
+  const handlerFilter = (filtersParams) => {
+    handleModal(false);
+    dispatch(setParams(filtersParams));
+    dispatch(
+      searchApartments({
+        publicAddress,
+        currentPage: 0,
+        ...filtersParams,
+        isFilter: true,
+        bounds,
+        startDate,
+        endDate,
+      }),
+    );
   };
 
   const handleDragAndZoomMap = (cords) => {
@@ -54,13 +75,16 @@ const MapScreen = () => {
         endDate,
       }),
     );
-  }, [page]);
+  }, []);
 
   return (
     <MapComponent
       onEndReachedHandler={loadMoreApartments}
       apartments={clusters.length !== 0 ? clusters : apartments}
       handleDragAndZoomMap={handleDragAndZoomMap}
+      apartmentFilter={handlerFilter}
+      setModalActive={handleModal}
+      isActiveModal={isVisible}
     />
   );
 };

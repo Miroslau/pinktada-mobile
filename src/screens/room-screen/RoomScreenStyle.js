@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 
-
 const RoomScreenStyle = StyleSheet.create({
   roomImage: {
     borderRadius: 5,
@@ -16,7 +15,7 @@ const RoomScreenStyle = StyleSheet.create({
     flex: 2,
     padding: 5,
     fontWeight: '400',
-    fontSize: 16
+    fontSize: 16,
   },
   roomTitle: {
     marginBottom: 10,

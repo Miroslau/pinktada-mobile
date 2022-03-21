@@ -12,10 +12,10 @@ export default {
     page = 1,
     priceFrom = 0,
   ) {
+    console.log(priceTo, priceFrom);
     const params = {
-      location, page, priceFrom, startDate, endDate,
+      location, page, priceFrom, priceTo, startDate, endDate,
     };
-    if (isMax) params.priceTo = priceTo;
     if (bounds) {
       params.neLat = bounds.northEast.latitude;
       params.neLng = bounds.northEast.longitude;
@@ -25,6 +25,7 @@ export default {
       params.sizeX = 800;
       params.sizeY = 800;
     }
+    console.log(`PARAMS: ${params.priceFrom}`);
     if (bedrooms !== 0) params.bedrooms = bedrooms;
     return httpClient.get('/apartments/search', {
       params,

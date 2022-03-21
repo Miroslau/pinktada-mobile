@@ -12,13 +12,17 @@ import {
   TextInput,
   Animated,
   TouchableOpacity,
-  Text,
+  Text, Button, Modal
 } from 'react-native';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import pointMarker from '../../../assets/icons/pointMarker.png';
 import MapComponentStyle from './MapComponentStyle';
 import ApartmentCard from '../apartment-card/ApartmentCard';
+import { clearState } from '../../store/slice/apartmentSlice';
+import ApartmentFilter from './apartment-filter/ApartmentFilter';
+import GestureRecognizer from 'react-native-swipe-gestures';
 
 const { width } = Dimensions.get('window');
 
@@ -26,7 +30,7 @@ const CARD_WIDTH = width * 0.8;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
 const MapComponent = ({
-  apartments, onEndReachedHandler, handleDragAndZoomMap,
+  apartments, onEndReachedHandler, handleDragAndZoomMap, apartmentFilter, isActiveModal, setModalActive
 }) => {
   const [region, setRegion] = useState({
     latitude: 37.78825,
@@ -37,6 +41,7 @@ const MapComponent = ({
 
   const keyExtractor = useCallback((item) => item._id);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   let mapIndex = 0;
   const mapAnimation = new Animated.Value(0);
@@ -87,6 +92,15 @@ const MapComponent = ({
     navigation.navigate('Room', { item });
   };
 
+  const goBack = () => {
+    dispatch(clearState());
+    navigation.goBack();
+  };
+
+  const toogleModalSearch = () => {
+    setModalActive(true);
+  }
+
   // eslint-disable-next-line max-len
   // eslint-disable-next-line react/prop-types,max-len,react/no-unstable-nested-components,react/destructuring-assignment
   const ApartmentItem = (item) => <ApartmentCard item={item.item} navigateHandler={navigateToRoom} />;
@@ -129,6 +143,12 @@ const MapComponent = ({
 
   return (
     <View style={MapComponentStyle.container}>
+      <Button
+        style={MapComponentStyle.button}
+        title="Come back"
+        onPress={goBack}
+      />
+      
       <MapView
         style={MapComponentStyle.container}
         loadingEnabled
@@ -215,6 +235,16 @@ const MapComponent = ({
           { useNativeDriver: true },
         )}
       />
+      <GestureRecognizer style={{ flex: 1 }} onSwipeDown={toogleModalSearch}>
+        <Modal
+          animationType="slide"
+          visible={isActiveModal}
+          transparent
+          >
+          <ApartmentFilter apartmentFilter={apartmentFilter}/>
+        </Modal>
+      </GestureRecognizer>
+      <Button title='Filter' onPress={toogleModalSearch}/>
     </View>
   );
 };

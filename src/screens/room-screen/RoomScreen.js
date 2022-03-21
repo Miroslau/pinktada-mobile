@@ -6,7 +6,8 @@ import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
-import { apartmentSelector } from '../../store/slice/apartmentSlice';
+import { apartmentSelector, clearState } from '../../store/slice/apartmentSlice';
+import {useDispatch} from "react-redux";
 import getRoom from '../../api/get-room-by-id/getRoomById';
 import RoomScreenStyle from './RoomScreenStyle';
 import RatingStar from '../../components/rating-star/RatingStar';
@@ -28,10 +29,16 @@ const RoomScreen = ({ route }) => {
   const differenceDatesInTime = new Date(endDate).getTime() - new Date(startDate).getTime();
   const differenceDatesInDays = differenceDatesInTime / (1000 * 3600 * 24);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const {
     token,
   } = useSelector(userSelector);
+
+  const goBack = () => {
+    dispatch(clearState());
+    navigation.goBack();
+  };
 
   const redirectToPaymentScreen = () => {
     const { price, _id } = roomInfo;
@@ -53,7 +60,7 @@ const RoomScreen = ({ route }) => {
         <Button
           style={RoomScreenStyle.button}
           title="Come back"
-          onPress={() => navigation.goBack()}
+          onPress={goBack}
         />
         <Text style={RoomScreenStyle.textSign}>
           {roomInfo.name}
