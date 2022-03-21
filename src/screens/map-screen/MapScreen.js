@@ -75,7 +75,7 @@ const MapScreen = () => {
         endDate,
       }),
     );
-  }, [page, priceRange, bedrooms]);
+  }, []);
 
   return (
     <MapComponent
